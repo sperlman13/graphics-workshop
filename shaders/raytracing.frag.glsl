@@ -82,6 +82,14 @@ Hit intersect(Ray r) {
 
 // Compute lighting from one light
 vec3 illuminate(vec3 lightPosition, vec3 pos, vec3 wo, Hit h) {
+    Ray ray;
+    ray.origin = pos;
+    ray.dir = lightPosition - pos;
+    Hit h2 = intersect(ray);
+    if(h2.time != inf) {
+        return vec3(0.0, 0.0, 0.0);
+    }
+
     vec3 wi = lightPosition - pos;
     vec3 kd = h.material.kd;
     if (h.material.checker) {
